@@ -4,15 +4,19 @@ let db = {
       userId: 'dh23ggj5h32g543j5gf43',
       email: 'user@email.com',
       userName: 'user',
+      fullName:'user',
       createdAt: '2019-03-15T10:59:52.798Z',
       imageUrl: 'image/dsfsdkfghskdfgs/dgfdhfgdh',
       bio: 'Hello, my name is user, nice to meet you',
-      location: 'Lonodn, UK'
+      location: 'Lonodn, UK',
+      phoneNumber:'4563256985'
     }
   ],
   questions: [
     {
       userName: 'user',
+      title:"TITLE",
+      imageUrl : 'image/dsfsdkfghskdfgs/dgfdhfgdh',
       body: 'This is a sample scream',
       postedAt: '2019-03-15T10:59:52.798Z',
       likeCount: 5,

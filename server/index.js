@@ -2,15 +2,27 @@ const app = require('express')()
 var bodyParser = require('body-parser')
 const cors = require('cors');
 app.use(cors());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({
-  extended: true
+  limit: '50mb',
+  extended: true,
+  parameterLimit: 1000000
 }));
-app.use(bodyParser.json());
+const Multer = require('multer'); 
+const multer = Multer({
+  storage: Multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024 // no larger than 5mb, you can change as needed.
+  },
+});
 
 const {
     signup,
     login,
-    uploadImage
+    uploadImage,
+    getAuthenticatedUser,
+    updateProfile,
+    removeImage
   } = require('./handlers/users');
 
 const{
@@ -21,11 +33,15 @@ const{
     commentOnQuestion
 }= require('./handlers/questions');
 
+
 const fbAuth = require('./utils/fbAuth')
 
 app.post('/signup',signup);
 app.post('/login',login);
-app.post('/user/image',fbAuth,uploadImage);
+app.get('/user', fbAuth, getAuthenticatedUser);
+app.post('/user/updateProfile',fbAuth,updateProfile)
+app.post('/user/image',fbAuth,multer.single('image'),uploadImage);
+app.get('/user/removeImage',fbAuth,removeImage)
 
 app.get('/questions',getQuestions);
 app.post('/askquestion',fbAuth,askQuestion);

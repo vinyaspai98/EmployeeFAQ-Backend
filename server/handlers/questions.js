@@ -33,6 +33,7 @@ exports.askQuestion=(req,res)=>{
   
     const newquestion={
       userName: req.body.userName,
+      title:req.body.title,
       question:req.body.question,
       postedAt: new Date().toISOString(),
       likeCount:0,
